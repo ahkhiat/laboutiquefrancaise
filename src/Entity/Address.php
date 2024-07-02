@@ -38,6 +38,18 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
+    public function __toString(): string
+    {
+        return $this->firstname.' '.
+               $this->lastname.'<br>'.
+               $this->address.'<br> '.
+               $this->postal.' '.
+               $this->city.'<br>'.
+               $this->country
+               
+               ;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

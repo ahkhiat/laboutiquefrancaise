@@ -2,6 +2,7 @@
 
 namespace App\Controller\Account;
 
+use App\Class\Cart;
 use App\Entity\Address;
 use App\Form\AddressUserType;
 use App\Repository\AddressRepository;
@@ -27,7 +28,7 @@ class AddressController extends AbstractController
     }
 
     #[Route('/compte/adresse/ajouter/{id}', name: 'app_account_address_form', defaults: ['id' => null])]
-    public function form(Request $request, $id, AddressRepository $addressRepository): Response
+    public function form(Request $request, $id, AddressRepository $addressRepository, Cart $cart): Response
     {
         if($id) {
             $address = $addressRepository-> findOneById($id);
@@ -51,6 +52,10 @@ class AddressController extends AbstractController
                 'success',
                 'Votre adresse a été correctement ajoutée'
             );
+
+            if ($cart->getFullQuantity() > 0) {
+                return $this->redirectToRoute('app_order');
+            }
             return $this->redirectToRoute('app_account_addresses');
         }
 
