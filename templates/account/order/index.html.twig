@@ -1,30 +1,41 @@
-{% extends '@!EasyAdmin/layout.html.twig' %}
-
-{% block main %}
-
-    <h3>Commande n°{{ order.id }}</h3>
-
-    {{ include('admin/state.html.twig', { field: {'value': order.state}}) }} <br>
-
-    <span class="mt-3">Passée le: {{ order.createdAt | date('d/m/Y') }}</span><br>
-    <span>Stripe Session Id: {{ order.stripeSessionId }}</span>
+{% extends 'base.html.twig' %}
 
 
-    <div class="row my-4">
-        <div class="col-md-6">
-            <strong>Adresse de livraison :</strong><br>
-            {{ order.delivery | raw }}
+{% block body %}
+
+{# {{dump(order)}} #}
+<div class="container my-5">
+
+    <h1>Espace membre</h1>
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'account/_menu.html.twig' %}
         </div>
-        <div class="col-md-6">
-            <strong>Transporteur :</strong><br>
-            {{ order.carrierName }}
-        </div>
-    </div>
 
-    <strong>Contenu de la commande: </strong>
+        <div class="col-md-9">
+            <small><a href="{{ path('app_account') }}" class="btn btn-light btn-sm ">Retour</a></small>
+            <h5 class="mt-4">Ma commande n° {{ order.id }}</h5>
+           
+            <span class="mt-3">Passée le: {{ order.createdAt | date('d/m/Y') }}</span><br>
+            {{ include('admin/state.html.twig', { field: {'value': order.state}}) }} <br>
+            <hr>
+
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <strong>Adresse de livraison :</strong><br>
+                    {{ order.delivery | raw }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Transporteur :</strong><br>
+                    {{ order.carrierName }}
+                </div>
+            </div>
+            <hr>
+
+            <strong>Contenu de la commande: </strong>
     
 
-    <table class="table">
+            <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">Illustration</th>
@@ -39,7 +50,8 @@
                    
                     {% for product in order.orderDetails %}
                         <tr>
-                            <td><img src="uploads/{{ product.productIllustration }}" width="100px" alt=""></td>
+                        {# {{dump(product)}} #}
+                            <td><img src="/uploads/{{ product.productIllustration }}" width="100px" alt=""></td>
                             <td>{{ product.productName }}</td>
                             <td>{{ product.productQuantity }}</td>
                             <td>{{ product.productPrice | price}}</td>
@@ -61,10 +73,18 @@
                 </tbody>
             </table>
 
-            <div class="text-right fs-5">
+            <div>
                 <strong>Total H.T. :</strong> {{ (order.totalWt - order.totalTva)| price }} <br>
-                <strong>Total TVA :</strong> {{ order.totalTva | price }} <br>
-                <strong>Total T.T.C :</strong> {{ order.totalWt | price }} <br>
+                Total TVA : {{ order.totalTva | price }} <br>
+                <strong>Total T.T.C : {{ order.totalWt | price }} </strong><br>
             </div>
 
+        </div>
+    </div>  
+</div>  
+
 {% endblock %}
+           
+
+           
+

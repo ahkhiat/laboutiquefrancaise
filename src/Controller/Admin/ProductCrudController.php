@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -41,6 +42,7 @@ class ProductCrudController extends AbstractCrudController
 
         return [
             TextField::new('name')->setLabel('Nom')->setHelp('Nom de votre produit'),
+            BooleanField::new('isHomepage')->setLabel('Produit à la une')->setHelp('Permet d\'afficher un produit sur la homepage'),
             SlugField::new('slug')->setTargetFieldName('name')->setLabel('URL')->setHelp('URL de votre catégorie'),
             TextEditorField::new('description')->setLabel('Description')->setHelp('Description de votre produit'),
             ImageField::new('illustration')

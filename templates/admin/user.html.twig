@@ -1,0 +1,26 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block main %}
+
+    <h3>Utilisateur n° {{user.id}} </h3>
+{{dump(user)}}
+
+<table class="table">
+  
+  <tbody class="table">
+    <tr>
+      <td>Nom:</td>
+      <td>{{user.lastname}}</td>
+    </tr>
+    <tr>
+      <td>Prénom: </td>
+      <td>{{user.firstname}}</td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td>{{user.email}}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}

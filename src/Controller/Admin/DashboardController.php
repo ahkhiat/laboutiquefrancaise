@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Order;
+use App\Entity\Header;
 use App\Entity\Carrier;
 use App\Entity\Product;
 use App\Entity\Category;
@@ -38,9 +39,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Transporteurs', 'fas fa-list', Carrier::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-list', Order::class);
+        yield MenuItem::linkToCrud('Produits', 'fas fa-bag-shopping', Product::class);
+        yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-file-lines', Order::class);
+        yield MenuItem::linkToCrud('Header', 'fas fa-image', Header::class);
 
         yield MenuItem::linkToUrl('Home', 'fa fa-home', $this->generateUrl('app_home'));
 
