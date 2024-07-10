@@ -15,7 +15,10 @@
             <h1>{{ product.name }}</h1>
             <strong><span class="d-block mb-3">{{ product.pricewt | price }}</span></strong>
             {{ product.description|raw }}
-            <a href="{{ path('app_cart_add', {id: product.id}) }}" class="btn btn-success w-100 mt-3">Ajouter au panier</a>
+            <div class="d-flex align-items-center mt-3">
+                <a href="{{ path('app_cart_add', {id: product.id}) }}" class="btn btn-success w-100">Ajouter au panier</a>
+                <a href="" class="btn btn-outline-success ms-3 border-2"><i data-feather="heart"></i></a>
+            </div>
         </div>
     </div>
 </div>

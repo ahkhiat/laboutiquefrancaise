@@ -1,9 +1,92 @@
-{% extends 'base.html.twig' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <style>
+        body {
+           font-family: Roboto, sans-serif; 
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .text-left {
+            text-align: left;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        table td, table th {
+            border-top: 1px solid #ccc;
+            padding: 0.5rem;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="text-center">
 
-{% block title %}Hello InvoiceController!{% endblock %}
+    <h3 class="text-left">Facture commande n° {{ order.id }}</h3>
+        <table style="width: 100%; border-bottom: 1px solid gray;">
+            <tr>
+                <td style="width: 49%;">
+                    <strong>La Boutique Française</strong> <br>
+                    mon adresse <br>
+                    code postal, ville, pays <br>
+                    email@laboutiquefrancaise.fr<br>
+                    0612345678<br>
+                    
+                </td>
+                <td class="text-right">
+                    {{ order.delivery|raw }}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <h5>Votre commande</h5>
+    <table style="width: 100%;">
+                <thead>
+                    <tr>
+                    <th scope="col" class="text-left">Produit</th>
+                    <th scope="col" class="text-left">Quantité</th>
+                    <th scope="col" class="text-left">Prix unitaire HT</th>
+                    <th scope="col" class="text-left">TVA</th>
+                    <th scope="col" class="text-right">Prix Total TTC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    {% for product in order.orderDetails %}
+                        <tr>
+                            <td class="text-left" >{{ product.productName }}</td>
+                            <td class="text-left">{{ product.productQuantity }}</td>
+                            <td class="text-left">{{ product.productPrice | price}}</td>
+                            <td class="text-left">{{ product.productTva}}%</td>
+                            {% set coeff = 1 + (product.productTva / 100)  %}
+                            <td class="text-right">{{ ((coeff * product.productPrice) * product.productQuantity) | price }}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                            <td class="text-left">Transporteur: {{ order.carrierName }}</td>
+                            <td class="text-left">1</td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">{{ order.carrierPrice | price }}</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
 
-{% block body %}
+            <div class="text-right" style="margin-top: 10px;">
+                <strong>Total H.T. :</strong> {{ (order.totalWt - order.totalTva)| price }} <br>
+                Total TVA : {{ order.totalTva | price }} <br>
+                <strong>Total T.T.C : {{ order.totalWt | price }} </strong><br>
+            </div>
 
-PDF
 
-{% endblock %}
+  </body>
+</html>
