@@ -17,7 +17,12 @@
             {{ product.description|raw }}
             <div class="d-flex align-items-center mt-3">
                 <a href="{{ path('app_cart_add', {id: product.id}) }}" class="btn btn-success w-100">Ajouter au panier</a>
-                <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn btn-outline-success ms-3 border-2" ><i data-feather="heart"></i></a>
+                
+                {% if app.user %}
+                    <a href="{{path('app_account_wishlist_add', {id: product.id})}}" class="btn btn-outline-success ms-3 border-2" ><i data-feather="heart"></i></a>
+                {% else %}
+                    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn btn-outline-success ms-3 border-2" ><i data-feather="heart"></i></a>
+                {% endif %}
             </div>
         <div class="collapse" id="collapseExample">
             <div class="mt-2">

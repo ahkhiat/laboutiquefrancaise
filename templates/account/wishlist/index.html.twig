@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello WishlistController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container my-5">
+    <h1>Espace membre</h1>    
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Code/laboutiquefrancaise/src/Controller/Account/WishlistController.php</code></li>
-        <li>Your template at <code>C:/Code/laboutiquefrancaise/templates/account/wishlist/index.html.twig</code></li>
-    </ul>
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'account/_menu.html.twig' %}
+        </div>
+        <div class="col-md-9">
+            <h5>Liste d'envies</h5>
+            {% if app.user.wishlist|length > 0 %}
+                {% for product in app.user.wishlist %}
+                    {{dump(product)}}
+                {% endfor %}
+            {% else %}
+                Vous n'vez pas de produit dans votre liste
+            {% endif %}
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}
