@@ -17,8 +17,14 @@
             {{ product.description|raw }}
             <div class="d-flex align-items-center mt-3">
                 <a href="{{ path('app_cart_add', {id: product.id}) }}" class="btn btn-success w-100">Ajouter au panier</a>
-                <a href="" class="btn btn-outline-success ms-3 border-2"><i data-feather="heart"></i></a>
+                <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn btn-outline-success ms-3 border-2" ><i data-feather="heart"></i></a>
             </div>
+        <div class="collapse" id="collapseExample">
+            <div class="mt-2">
+                Pour utiliser les avantages de la Liste d'envies, veuillez vous <a href="{{path('app_login')}}">connecter</a> ou <a href="{{path('app_register')}}">créez</a> votre compte client.
+            </div>
+        </div>
+
         </div>
     </div>
 </div>
