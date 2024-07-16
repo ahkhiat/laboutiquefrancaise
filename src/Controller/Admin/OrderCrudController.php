@@ -3,20 +3,29 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class OrderCrudController extends AbstractCrudController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+    }
     public static function getEntityFqcn(): string
     {
         return Order::class;
@@ -42,11 +51,32 @@ class OrderCrudController extends AbstractCrudController
             ;
     }
 
-    public function show(AdminContext $context)
+    // Fonction permettant le changement de statut d'une commande
+    public function changeState($order, $state)
+    {
+        $order->setState($state);
+        $this->em->flush();
+
+        $this->addFlash('success', "Statut de la commande correctement mis à jour");
+
+    }
+
+    public function show(AdminContext $context, AdminUrlGenerator $adminUrlGenerator, Request $request)
     {
         $order = $context->getEntity()->getInstance();
+
+        // récuperer l'url de notre action show
+        $url = $adminUrlGenerator->setController(self::class)->setAction('show')->setEntityId($order->getId())->generateUrl();
+              
+        if($request->get('state')) {
+            $this->changeState($order, $request->get('state'));
+
+        }
+
+        // Traitement des changements des status
         return $this->render('admin/order.html.twig', [
-            'order' => $order
+            'order' => $order,
+            'current_url' => $url
         ]);
     }
 

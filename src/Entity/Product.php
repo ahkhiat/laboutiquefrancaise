@@ -38,6 +38,9 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?bool $isHomepage = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $shortDescription = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -142,6 +145,18 @@ class Product
     public function setIsHomepage(?bool $isHomepage): static
     {
         $this->isHomepage = $isHomepage;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(string $shortDescription): static
+    {
+        $this->shortDescription = $shortDescription;
 
         return $this;
     }

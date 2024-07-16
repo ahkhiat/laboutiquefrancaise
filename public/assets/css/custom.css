@@ -97,3 +97,17 @@
     max-width: 600px;
     margin: 0 auto;
 }
+
+.wishlist-icon svg {
+    background-color: lightgray;
+    color: black;
+    padding: 9px;
+    border-radius: 50%;
+    height: 39px;
+    width: 39px;
+}
+
+.wishlist-icon-active svg {
+    background-color: #ceeddf;
+    color: #0b6b3e
+}

@@ -55,7 +55,7 @@
                 <div class="col-lg-4">
                     <img src="/uploads/{{product.illustration}}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <h2 class="fw-normal">{{ product.name }}</h2>
-                    <div class="fs-6">{{ product.description|raw }}</div>
+                    <div class="fs-6">{{ product.shortDescription|raw }}</div>
                     <p><a class="btn btn-secondary mt-2" href="{{ path('app_product', {slug: product.slug}) }}">Découvrir</a></p>
                 </div><!-- /.col-lg-4 -->
             {% endfor %}
