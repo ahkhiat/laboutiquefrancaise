@@ -111,3 +111,10 @@
     background-color: #ceeddf;
     color: #0b6b3e
 }
+
+.small-block {
+    width: 700px;
+    margin: 0 auto;
+    background-color: #fafafa;
+    padding: 20px;
+}
