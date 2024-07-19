@@ -82,11 +82,18 @@ class ForgotPasswordController extends AbstractController
             return $this->redirectToRoute('app_password');
         }
        
+        $form = $this->createForm(ResetPasswordType::class, $user);   
 
-        $form = $this->createForm(ResetPasswordType::class);        
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setToken(null);
+            $user->setTokenExpiresAt(null);
+            
+            $this->em->flush();
+            $this->addFlash(
+            'success',
+            'Votre mot de passe est correctement mis à jour');
 
         }
         
